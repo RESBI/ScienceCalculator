@@ -3,24 +3,19 @@
 
 #define InitLength 2000
 
-void Float_initStack(float *Stack, int Length);
-int Float_Push(float *Stack, float Num);
-float Float_Pop(float *Stack);
-float Float_Top(float *Stack);
-
-void Int_initStack(int *Stack, int Length);
-int Int_Push(int *Stack, int Num);
-int Int_Pop(int *Stack);
-int Int_Top(int *Stack);
+void Double_initStack(double *Stack, int Length);
+int Double_Push(double *Stack, double Num);
+double Double_Pop(double *Stack);
+double Double_Top(double *Stack);
 
 int factorial(int x);
-float mod(float a, float b);
-int sign(float a);
+double mod(double a, double b);
+int sign(double a);
 
-float getResult(int *RPC, int LengthOfRPC, float ans);
-int getRPC(int *RPC, int *Line, int LOL);
+double getResult(double *RPC, int LengthOfRPC, double ans);
+int getRPC(double *RPC, int *Line, int LOL);
 
-void Float_initStack(float *Stack, int Length) {
+void Double_initStack(double *Stack, int Length) {
   for (int i=0; i<Length+2; i++) {
     Stack[i] = 0;
   }
@@ -28,7 +23,7 @@ void Float_initStack(float *Stack, int Length) {
   Stack[1] = Length;
 }
 
-int Float_Push(float *Stack, float Num) {
+int Double_Push(double *Stack, double Num) {
   if (Stack[0] >= Stack[1]) {
     return 0;
   }
@@ -37,7 +32,7 @@ int Float_Push(float *Stack, float Num) {
   return 1;
 }
 
-float Float_Pop(float *Stack) {
+double Double_Pop(double *Stack) {
   if (Stack[0] <= 1) {
     return -1;
   }
@@ -45,37 +40,8 @@ float Float_Pop(float *Stack) {
   return Stack[(int)Stack[0]];
 }
 
-float Float_Top(float *Stack) {
+double Double_Top(double *Stack) {
   return Stack[(int)Stack[0]-1];
-}
-
-void Int_initStack(int *Stack, int Length) {
-  for (int i=0; i<Length+2; i++) {
-    Stack[i] = 0;
-  }
-  Stack[0] = 2;
-  Stack[1] = Length;
-}
-
-int Int_Push(int *Stack, int Num) {
-  if (Stack[0] >= Stack[1]) {
-    return 0;
-  }
-  Stack[Stack[0]] = Num;
-  Stack[0]++;
-  return 1;
-}
-
-int Int_Pop(int *Stack) {
-  if (Stack[0] < 2) {
-    return -9999;
-  }
-  Stack[0]--;
-  return Stack[Stack[0]];
-}
-
-int Int_Top(int *Stack) {
-  return Stack[Stack[0]-1];
 }
 
 int factorial(int x) {
@@ -89,93 +55,93 @@ int factorial(int x) {
   return result;
 }
 
-float mod(float a, float b) {
+double mod(double a, double b) {
   while (a>=b) {
     a-=b;
   }
   return a;
 }
 
-int sign(float a) {
+int sign(double a) {
   return a>0?1:a==0?0:a<0?-1:0;
 }
 
-float getResult(int *RPC, int LengthOfRPC, float ans) {
-  float Stack[InitLength+2];
-  Float_initStack(Stack, InitLength);
-  float a, b;
+double getResult(double *RPC, int LengthOfRPC, double ans) {
+  double Stack[InitLength+2];
+  Double_initStack(Stack, InitLength);
+  double a, b;
   for (int i=0; i<LengthOfRPC; i++) {
     if (RPC[i] >= 0) {
-      Float_Push(Stack, (float)RPC[i]);
+      Double_Push(Stack, (double)RPC[i]);
     } else if (RPC[i] == -1) { // +
-      a = Float_Pop(Stack);
-      b = Float_Pop(Stack);
-      Float_Push(Stack, a+b);
+      a = Double_Pop(Stack);
+      b = Double_Pop(Stack);
+      Double_Push(Stack, a+b);
     } else if (RPC[i] == -2) { // -
-      a = Float_Pop(Stack);
-      b = Float_Pop(Stack);
-      Float_Push(Stack, b-a);
+      a = Double_Pop(Stack);
+      b = Double_Pop(Stack);
+      Double_Push(Stack, b-a);
     } else if (RPC[i] == -3) { // *
-      a = Float_Pop(Stack);
-      b = Float_Pop(Stack);
-      Float_Push(Stack, a*b);
+      a = Double_Pop(Stack);
+      b = Double_Pop(Stack);
+      Double_Push(Stack, a*b);
     } else if (RPC[i] == -4) { // /
-      a = Float_Pop(Stack);
-      b = Float_Pop(Stack);
-      Float_Push(Stack, b/a);
+      a = Double_Pop(Stack);
+      b = Double_Pop(Stack);
+      Double_Push(Stack, b/a);
     } else if (RPC[i] == -5) { // !
-      a = Float_Pop(Stack);
-      Float_Push(Stack, (float)factorial(a));
+      a = Double_Pop(Stack);
+      Double_Push(Stack, (double)factorial(a));
     } else if (RPC[i] == -6) { // ^
-      a = Float_Pop(Stack);
-      b = Float_Pop(Stack);
-      Float_Push(Stack, pow(b, a));
+      a = Double_Pop(Stack);
+      b = Double_Pop(Stack);
+      Double_Push(Stack, pow(b, a));
     } else if (RPC[i] == -7) { // pi
-      Float_Push(Stack, 3.14159265358f);
+      Double_Push(Stack, 3.14159265358f);
     } else if (RPC[i] == -8) { // e
-      Float_Push(Stack, 2.71828182846f);
+      Double_Push(Stack, 2.71828182846f);
     } else if (RPC[i] == -9) { // mod
-      a = Float_Pop(Stack);
-      b = Float_Pop(Stack);
-      Float_Push(Stack, mod(b, a));
+      a = Double_Pop(Stack);
+      b = Double_Pop(Stack);
+      Double_Push(Stack, mod(b, a));
     } else if (RPC[i] == -10) { // sign
-      a = Float_Pop(Stack);
-      Float_Push(Stack, (float)sign(a));
+      a = Double_Pop(Stack);
+      Double_Push(Stack, (double)sign(a));
     } else if (RPC[i] == -11) { // sin
-      a = Float_Pop(Stack);
-      Float_Push(Stack, sin(a));
+      a = Double_Pop(Stack);
+      Double_Push(Stack, sin(a));
     } else if (RPC[i] == -12) { // cos
-      a = Float_Pop(Stack);
-      Float_Push(Stack, cos(a));
+      a = Double_Pop(Stack);
+      Double_Push(Stack, cos(a));
     } else if (RPC[i] == -13) { // tan
-      a = Float_Pop(Stack);
-      Float_Push(Stack, tan(a));
+      a = Double_Pop(Stack);
+      Double_Push(Stack, tan(a));
     } else if (RPC[i] == -25) { // ln
-      a = Float_Pop(Stack);
-      Float_Push(Stack, log(a));
+      a = Double_Pop(Stack);
+      Double_Push(Stack, log(a));
     } else if (RPC[i] == -26) { // lg
-      a = Float_Pop(Stack);
-      Float_Push(Stack, log(a)/log(10));
+      a = Double_Pop(Stack);
+      Double_Push(Stack, log(a)/log(10));
     } else if (RPC[i] == -40) { // ans
-      Float_Push(Stack, ans);
+      Double_Push(Stack, ans);
     }
   }
-  return Float_Top(Stack);
+  return Double_Top(Stack);
 }
 
-int getRPC(int *RPC, int *Line, int LOL) {
-  int Symbles[502];
-  int Numbers[502];
-  int TempStack[502];
-  Int_initStack(Symbles, 500);
-  Int_initStack(Numbers, 500);
-  Int_initStack(TempStack, 500);
-  int Temp = 0;
+int getRPC(double *RPC, int *Line, int LOL) {
+  double Symbles[502];
+  double Numbers[502];
+  double TempStack[502];
+  Double_initStack(Symbles, 500);
+  Double_initStack(Numbers, 500);
+  Double_initStack(TempStack, 500);
+  double Temp = 0;
   int index = 0;
   int SIGN = 0;
   int bracketsProcessingLine[InitLength];
-  int bracketsProcessingRPC[InitLength];
-  int TempList[InitLength];
+  double bracketsProcessingRPC[InitLength];
+  double TempList[InitLength];
   while (index < LOL) {
     Temp = 0;
     SIGN = 0;
@@ -187,16 +153,16 @@ int getRPC(int *RPC, int *Line, int LOL) {
 	Temp = Temp*10 + (Line[index]-48);
 	index++;
       }
-      Int_Push(Numbers, Temp);
+      Double_Push(Numbers, Temp);
       while (Symbles[0] > 2) // clear symble stack
-	Int_Push(Numbers, Int_Pop(Symbles));
+	Double_Push(Numbers, Double_Pop(Symbles));
     } else if (Line[index] == 40) { // Processing bracket
 	SIGN = 1;
 	Temp = -1;
 	index++;
 	while (SIGN > 0) { // maching the bracket.
 	  Temp++;
-	  bracketsProcessingLine[Temp] = Line[index];
+	  bracketsProcessingLine[(int)Temp] = Line[index];
 	  if (Line[index] == 41)
 	    SIGN--;
 	  if (Line[index] == 40)
@@ -205,102 +171,102 @@ int getRPC(int *RPC, int *Line, int LOL) {
 	}
 	Temp = getRPC(bracketsProcessingRPC, bracketsProcessingLine, Temp);
 	for (int i=0; i<Temp; i++)
-	  Int_Push(Numbers, bracketsProcessingRPC[i]);
+	  Double_Push(Numbers, bracketsProcessingRPC[i]);
 	while (Symbles[0] > 2) // clear symble stack
-	  Int_Push(Numbers, Int_Pop(Symbles));
-	Int_Push(Numbers, -9999); // Avoid switching the operation symble.
+	  Double_Push(Numbers, Double_Pop(Symbles));
+	Double_Push(Numbers, -9999); // Avoid switching the operation symble.
       } else {
       if (Line[index] == 43) { // +
-	Int_Push(Symbles, -1);
+	Double_Push(Symbles, -1);
       } else if (Line[index] == 45) { // -
-	Int_Push(Symbles, -2);
+	Double_Push(Symbles, -2);
       } else if (Line[index] == 42) { // *
-	Temp = Int_Top(Numbers);
+	Temp = Double_Top(Numbers);
 	if ((Temp==-1)||(Temp==-2)) {
-	  Int_Push(Symbles, Int_Pop(Numbers));
+	  Double_Push(Symbles, Double_Pop(Numbers));
 	}
-	Int_Push(Symbles, -3);
+	Double_Push(Symbles, -3);
       } else if (Line[index] == 47) { // /
-	Temp = Int_Top(Numbers);
+	Temp = Double_Top(Numbers);
 	if ((Temp==-1)||(Temp==-2)) {
-	  Int_Push(Symbles, Int_Pop(Numbers));
+	  Double_Push(Symbles, Double_Pop(Numbers));
 	}
-	Int_Push(Symbles, -4);
+	Double_Push(Symbles, -4);
       } else if (Line[index] == 33) { // !
-	Temp = Int_Top(Numbers);
+	Temp = Double_Top(Numbers);
 	if ((Temp==-1)||(Temp==-2)||(Temp==-3)||(Temp==-4)) {
-	  Int_Push(Symbles, Int_Pop(Numbers));
+	  Double_Push(Symbles, Double_Pop(Numbers));
 	}
-	Int_Push(Symbles, -5);
+	Double_Push(Symbles, -5);
       } else if (Line[index] == 94) { // ^
-	Temp = Int_Top(Numbers);
+	Temp = Double_Top(Numbers);
 	if ((Temp==-1)||(Temp==-2)||(Temp==-3)||(Temp==-4)) {
-	  Int_Push(Symbles, Int_Pop(Numbers));
+	  Double_Push(Symbles, Double_Pop(Numbers));
 	}
-	Int_Push(Symbles, -6);
+	Double_Push(Symbles, -6);
       } else {
 	while (((Line[index]>=65)&&(Line[index]<=90))||((Line[index]>=97)&&(Line[index]<=122))) { // get symble name and length.
-	  TempList[Temp] = Line[index];
+	  TempList[(int)Temp] = Line[index];
 	  Temp++;
 	  index++;
 	}
 	if ((TempList[0] == 112)&&(TempList[1] == 105)&&(Temp==2)) { // pi=3.1415926
-	  Int_Push(Numbers, -7);
+	  Double_Push(Numbers, -7);
 	  SIGN = 1; // constent symble
 	} else if ((TempList[0] == 101)&&(Temp==1)) { // e=2.71828182846
-	  Int_Push(Numbers, -8);
+	  Double_Push(Numbers, -8);
 	  SIGN = 1; // constent symble
 	} else if ((TempList[0] == 109)&&(TempList[1] == 111)&&(TempList[2] == 100)&&(Temp==3)) { // mod
-	  Temp = Int_Top(Numbers);
+	  Temp = Double_Top(Numbers);
 	  if ((Temp==-1)||(Temp==-2)||(Temp==-3)||(Temp==-4)) {
-	    Int_Push(Symbles, Int_Pop(Numbers));
+	    Double_Push(Symbles, Double_Pop(Numbers));
 	  }
-	  Int_Push(Symbles, -9);
+	  Double_Push(Symbles, -9);
 	} else if ((TempList[0] == 115)&&(TempList[1] == 105)&&(TempList[2] == 103)&&(TempList[3] == 110)&&(Temp==4)) { // sign
-	  Int_Push(Symbles, -10);
+	  Double_Push(Symbles, -10);
 	} else if ((TempList[0] == 115)&&(TempList[1] == 105)&&(TempList[2] == 110)&&(Temp==3)) { // sin
-	  Int_Push(Symbles, -11);
+	  Double_Push(Symbles, -11);
 	} else if ((TempList[0] == 99)&&(TempList[1] == 111)&&(TempList[2] == 115)&&(Temp==3)) { // cos
-	  Int_Push(Symbles, -12);
+	  Double_Push(Symbles, -12);
 	} else if ((TempList[0] == 116)&&(TempList[1] == 97)&&(TempList[2] == 110)&&(Temp==3)) { // tan
-	  Int_Push(Symbles, -13);
+	  Double_Push(Symbles, -13);
 	} else if ((TempList[0] == 108)&&(TempList[1] == 110)&&(Temp==2)) { // ln
-	  Int_Push(Symbles, -25);
+	  Double_Push(Symbles, -25);
 	} else if ((TempList[0] == 108)&&(TempList[1] == 103)&&(Temp==2)) { // lg
-	  Int_Push(Symbles, -26);
+	  Double_Push(Symbles, -26);
 	} else if ((TempList[0] == 97)&&(TempList[1] == 110)&&(TempList[2] == 115)&&(Temp==3)) { // ans
-	  Int_Push(Symbles, -40);
+	  Double_Push(Symbles, -40);
 	  SIGN = 1; // ans is a constent.
 	}
 	if (SIGN) // pi, e.... is a constent, so we need to clear the symble stack
 	  while (Symbles[0] > 2)
-	    Int_Push(Numbers, Int_Pop(Symbles));
+	    Double_Push(Numbers, Double_Pop(Symbles));
 	index--;
       }
       index++;
     }
   }
   while (Symbles[0] > 2)
-    Int_Push(Numbers, Int_Pop(Symbles));
+    Double_Push(Numbers, Double_Pop(Symbles));
 
   while (Numbers[0] > 2) {
-    Temp = Int_Pop(Numbers);
+    Temp = Double_Pop(Numbers);
     if (Temp != -9999) // delet -9999
-      Int_Push(TempStack, Temp);
+      Double_Push(TempStack, Temp);
   }
   
   Temp = TempStack[0]-2;
   for (int i=0; i<Temp; i++)
-    RPC[i] = Int_Pop(TempStack);
-  return Temp;
+    RPC[i] = Double_Pop(TempStack);
+  return (int)Temp;
 }
 
 int main() {
   char Line[InitLength];
   int Line_result[InitLength];
-  int RPC[InitLength];
+  double RPC[InitLength];
   int length, LengthOfLine;
-  float ans = 0;
+  double ans = 0;
   printf("Press ESC and press ENTER to escape.\n");
   while (1) {
     printf(">> ");
@@ -358,11 +324,11 @@ int main() {
       } else if (RPC[i] == -40) {
 	printf("ans ");
       } else {
-	printf("%d ", RPC[i]);
+	printf("%ld ", (long long)RPC[i]);
       }
     }
     ans = getResult(RPC, LengthOfLine, ans);
-    printf("\nResult = %f\n", ans);
+    printf("\nans = %Lf\n", ans);
   }
   return 0;
 }
