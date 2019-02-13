@@ -39,6 +39,7 @@ e: 2.7182871....
 + NO NEGATIVE NUMBERS, FLOAT NUMBERS!
 
 + You can input a fractional number instead of inputting a floating number direactly.
++ If you input a wrong operation, it will give you a wrong answer. (#smile
 
 # TODO:
 - Add coustom functions.
