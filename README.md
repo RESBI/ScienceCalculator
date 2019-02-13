@@ -12,7 +12,7 @@ cos(pi/2)
 sin(cos(pi\*ln(5)^2))
 
 # Supported operation:
-+ - \* /
+\+ \- \* /
 
 ln x
 
@@ -34,17 +34,17 @@ pi: 3.1415926....
 e: 2.7182871....
 
 # Warning:
-It can only input natural number!
++ It can only input natural number!
 
-NO NEGATIVE NUMBERS, FLOAT NUMBERS!
++ NO NEGATIVE NUMBERS, FLOAT NUMBERS!
 
-You can input a fractional number instead of inputting a floating number direactly.
++ You can input a fractional number instead of inputting a floating number direactly.
 
 # TODO:
-Add coustom functions.
+- Add coustom functions.
 
-Add log(a, b).
+- Add log(a, b).
 
-Add other operations.
++ Add other operations.
 
-Fix the problem of the precision of double number. // Maybe use BigN?
+- Fix the problem of the precision of double number. // Maybe use BigN?
