@@ -11,6 +11,8 @@ cos(pi/2)
 
 sin(cos(pi\*ln(5)^2))
 
+e\*((e+pi)\*(2\*e+pi))^e+e/((pi^e-e)\*(e+e^pi-pi^e))
+
 # Supported operation:
 \+ \- \* /
 
