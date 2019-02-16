@@ -38,6 +38,9 @@ int sign(double a);
 
 double getResult(double *RPC, int LengthOfRPC, double ans);
 int getRPC(double *RPC, int *Line, int LOL);
+int getPriority(int Symble);
+
+void printRPC(double *RPC, int LengthOfLine);
 
 void Double_initStack(double *Stack, int Length) {
   for (int i=0; i<Length+2; i++) {
@@ -91,6 +94,26 @@ int mod(int a, int b) {
 
 int sign(double a) {
   return a>0?1:a==0?0:a<0?-1:0;
+}
+
+int getPriority(int Symble) {
+  if (Symble == Symble_add) { // Add
+    return 0;
+  } else if (Symble == Symble_sub) { // Sub
+    return 0;
+  } else if (Symble == Symble_mul) { // Mul
+    return 1;
+  } else if (Symble == Symble_div) { // Div
+    return 1;
+  } else if (Symble == Symble_mod) { // Mod
+    return 1;
+  } else if (Symble == Symble_factorial) { // Factorial
+    return 2;
+  } else if (Symble == Symble_exponentiation) { // Exponentiation
+    return 3;
+  } else { // Numbers is GOD!
+    return 9999;
+  }
 }
 
 double getResult(double *RPC, int LengthOfRPC, double ans) {
@@ -240,25 +263,28 @@ int getRPC(double *RPC, int *Line, int LOL) {
 	Double_Push(Symbles, Symble_sub);
       } else if (Line[index] == 42) { // *
 	Temp = Double_Top(Numbers);
-	if ((Temp==Symble_add)||(Temp==Symble_sub)) {
+	if (getPriority(Symble_mul) > getPriority(Temp)) {
 	  Double_Push(Symbles, Double_Pop(Numbers));
 	}
 	Double_Push(Symbles, Symble_mul);
       } else if (Line[index] == 47) { // /
 	Temp = Double_Top(Numbers);
-	if ((Temp==Symble_add)||(Temp==Symble_sub)) {
+	if (getPriority(Symble_div) > getPriority(Temp)) {
 	  Double_Push(Symbles, Double_Pop(Numbers));
 	}
 	Double_Push(Symbles, Symble_div);
       } else if (Line[index] == 33) { // !
 	Temp = Double_Top(Numbers);
-	if ((Temp==Symble_add)||(Temp==Symble_sub)||(Temp==Symble_mul)||(Temp==Symble_div)) {
+	while (getPriority(Symble_factorial) > getPriority(Temp)) { // Get all operation out.
 	  Double_Push(Symbles, Double_Pop(Numbers));
+	  Temp = Double_Top(Numbers);
 	}
-	Double_Push(Symbles, Symble_factorial);
+	Double_Push(Numbers, Symble_factorial);
+	while (Symbles[0] > 2) // clear symble stack
+	  Double_Push(Numbers, Double_Pop(Symbles));
       } else if (Line[index] == 94) { // ^
 	Temp = Double_Top(Numbers);
-	if ((Temp==Symble_add)||(Temp==Symble_sub)||(Temp==Symble_mul)||(Temp==Symble_div)) {
+	if (getPriority(Symble_exponentiation) > getPriority(Temp)) {
 	  Double_Push(Symbles, Double_Pop(Numbers));
 	}
 	Double_Push(Symbles, Symble_exponentiation);
@@ -276,7 +302,7 @@ int getRPC(double *RPC, int *Line, int LOL) {
 	  SIGN = 1; // constant symble
 	} else if ((TempList[0] == 109)&&(TempList[1] == 111)&&(TempList[2] == 100)&&(Temp==3)) { // mod
 	  Temp = Double_Top(Numbers);
-	  if ((Temp==Symble_add)||(Temp==Symble_sub)||(Temp==Symble_mul)||(Temp==Symble_div)) {
+	  if (getPriority(Symble_mod) > getPriority(Temp)) {
 	    Double_Push(Symbles, Double_Pop(Numbers));
 	  }
 	  Double_Push(Symbles, Symble_mod);
