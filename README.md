@@ -24,7 +24,7 @@ cos x
 
 a mod b
 
-(x!) //ps, x! must in a couple of brackets!
+a!
 
 a^b
 
