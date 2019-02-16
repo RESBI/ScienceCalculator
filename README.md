@@ -43,6 +43,10 @@ e: 2.7182871....
 + You can input a fractional number instead of inputting a floating number direactly.
 + If you input a wrong operation, it will give you a wrong answer. (#smile
 
+# Bug:
+
+2\*3^2 is not equal to 2\*(3)^2
+
 # TODO:
 - Add coustom functions.
 
