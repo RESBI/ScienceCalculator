@@ -110,7 +110,7 @@ int getPriority(int Symble) {
   } else if (Symble == Symble_factorial) { // Factorial
     return 2;
   } else if (Symble == Symble_exponentiation) { // Exponentiation
-    return 3;
+    return 2;
   } else { // Numbers is GOD!
     return 9999;
   }
@@ -251,8 +251,6 @@ int getRPC(double *RPC, int *Line, int LOL) {
       Temp = getRPC(bracketsProcessingRPC, bracketsProcessingLine, Temp);
       for (int i=0; i<Temp; i++)
 	Double_Push(Numbers, bracketsProcessingRPC[i]);
-      while (Symbles[0] > 2) // clear symble stack
-	Double_Push(Numbers, Double_Pop(Symbles));
       Double_Push(Numbers, -9999); // Avoid switching the operation symble.
     } else if (Line[index] == 41) { // if right bracket, return error.
       return Error_Processing_Bracket_Not_Matched_Missed_Left;
