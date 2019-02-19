@@ -45,7 +45,7 @@ e: 2.7182871....
 
 # Bug:
 
-2\*3^2 is not equal to 2\*(3)^2
+- Finding...
 
 # TODO:
 - Add coustom functions.
