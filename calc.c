@@ -252,6 +252,8 @@ int getRPC(double *RPC, int *Line, int LOL) {
       for (int i=0; i<Temp; i++)
 	Double_Push(Numbers, bracketsProcessingRPC[i]);
       Double_Push(Numbers, -9999); // Avoid switching the operation symble.
+      while (Symbles[0] > 2)
+	Double_Push(Numbers, Double_Pop(Symbles));
     } else if (Line[index] == 41) { // if right bracket, return error.
       return Error_Processing_Bracket_Not_Matched_Missed_Left;
     } else {
@@ -333,13 +335,14 @@ int getRPC(double *RPC, int *Line, int LOL) {
 
   while (Numbers[0] > 2) {
     Temp = Double_Pop(Numbers);
+    //printf("%d ", (int)Temp);
     if (Temp != -9999) // delet -9999
       Double_Push(TempStack, Temp);
   }
-  
   Temp = TempStack[0]-2;
   for (int i=0; i<Temp; i++)
     RPC[i] = Double_Pop(TempStack);
+  //printf("\n");
   return (int)Temp;
 }
 
